@@ -17,6 +17,13 @@
  * under the License.
  *
 */
+
+/*
+Modifications:
+- initialize
+- execute
+*/
+
 package org.apache.cordova.statusbar;
 
 import android.app.Activity;
@@ -25,6 +32,7 @@ import android.os.Build;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.content.Context;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaArgs;
@@ -33,8 +41,11 @@ import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.LOG;
 import org.apache.cordova.PluginResult;
+
 import org.json.JSONException;
+
 import java.util.Arrays;
+import java.lang.Math;
 
 public class StatusBar extends CordovaPlugin {
     private static final String TAG = "StatusBar";
@@ -54,6 +65,10 @@ public class StatusBar extends CordovaPlugin {
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                //https://github.com/apache/cordova-plugin-statusbar/issues/110
+                //This corrects keyboard behaviour when overlaysWebView is true
+                StatusBarViewHelper.assistActivity(cordova.getActivity());
+                
                 // Clear flag FLAG_FORCE_NOT_FULLSCREEN which is set initially
                 // by the Cordova.
                 Window window = cordova.getActivity().getWindow();
@@ -64,10 +79,13 @@ public class StatusBar extends CordovaPlugin {
 
                 // Read 'StatusBarStyle' from config.xml, default is 'lightcontent'.
                 setStatusBarStyle(preferences.getString("StatusBarStyle", "lightcontent"));
+
+                // Read `StatusBarOverlaysWebView' from config.xml, default is 'true'
+                setStatusBarTransparent(preferences.getBoolean("StatusBarOverlaysWebView", true));
             }
         });
     }
-
+    
     /**
      * Executes the request and returns PluginResult.
      *
@@ -81,10 +99,21 @@ public class StatusBar extends CordovaPlugin {
         LOG.v(TAG, "Executing action: " + action);
         final Activity activity = this.cordova.getActivity();
         final Window window = activity.getWindow();
+        final Context context = window.getContext();
 
         if ("_ready".equals(action)) {
             boolean statusBarVisible = (window.getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) == 0;
             callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, statusBarVisible));
+            return true;
+        }
+
+        if("getStatusBarHeight".equals(action)) {
+            int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+            if (resourceId > 0) {
+                //callbackContext.success(context.getResources().getDimensionPixelSize(resourceId));
+                callbackContext.success((int)Math.ceil(activity.getResources().getDimension(resourceId) / activity.getResources().getDisplayMetrics().density));
+            }
+    
             return true;
         }
 
@@ -153,8 +182,10 @@ public class StatusBar extends CordovaPlugin {
                     public void run() {
                         try {
                             setStatusBarTransparent(args.getBoolean(0));
+                            callbackContext.success();
                         } catch (JSONException ignore) {
                             LOG.e(TAG, "Invalid boolean argument");
+                            callbackContext.error("Invalid boolean argument");
                         }
                     }
                 });

@@ -44,8 +44,8 @@ var StatusBar = {
 
     isVisible: true,
 
-    overlaysWebView: function (doOverlay) {
-        exec(null, null, "StatusBar", "overlaysWebView", [doOverlay]);
+    overlaysWebView: function (doOverlay, success, fail) {
+        exec(success, fail, "StatusBar", "overlaysWebView", [doOverlay]);
     },
 
     styleDefault: function () {
@@ -93,8 +93,11 @@ var StatusBar = {
     show: function () {
         exec(null, null, "StatusBar", "show", []);
         StatusBar.isVisible = true;
-    }
+    },
 
+    getStatusBarHeight: function(success, fail) {
+        exec(success, fail, "StatusBar", "getStatusBarHeight", []);
+    }
 };
 
 // prime it. setTimeout so that proxy gets time to init
