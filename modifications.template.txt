@@ -1,0 +1,10 @@
+/*
+	How to use this template:
+	1 - Copy the comment block at the end of the file
+	2 - Paste the comment block at the top of the file you are editting.
+*/
+
+/*
+Modifications:
+- methodName/changes. Doesn't need to be detailed.
+*/
