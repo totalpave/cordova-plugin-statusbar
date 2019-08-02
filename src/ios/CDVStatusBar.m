@@ -23,6 +23,13 @@
  in your Info.plist as well to set the styles in iOS 7
  */
 
+/*
+Modifications:
+- pluginInitialize
+- getStatusBarHeight
+- overlaysWebView
+*/
+
 #import "CDVStatusBar.h"
 #import <objc/runtime.h>
 #import <Cordova/CDVViewController.h>
@@ -136,6 +143,11 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
         [self setStatusBarStyle:[self settingForKey:setting]];
     }
 
+    setting  = @"StatusBarOverlaysWebView";
+    if([self settingForKey:setting]) {
+        [self setStatusBarOverlaysWebView:[[self settingForKey:setting] boolValue]];
+    }
+
     setting  = @"StatusBarDefaultScrollToTop";
     if ([self settingForKey:setting]) {
         self.webView.scrollView.scrollsToTop = [(NSNumber*)[self settingForKey:setting] boolValue];
@@ -191,6 +203,11 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     }
 }
 
+- (void) getStatusBarHeight:(CDVInvokedUrlCommand*)command 
+{
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:ceilf([[UIApplication sharedApplication] statusBarFrame].size.height)] callbackId: command.callbackId];
+}
+
 - (void) initializeStatusBarBackgroundView
 {
     CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
@@ -231,7 +248,6 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
         [self.webView.superview addSubview:_statusBarBackgroundView];
 
     }
-
 }
 
 - (BOOL) statusBarOverlaysWebView
@@ -247,6 +263,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     }
 
     self.statusBarOverlaysWebView = [value boolValue];
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId: command.callbackId];
 }
 
 - (void) refreshStatusBarAppearance

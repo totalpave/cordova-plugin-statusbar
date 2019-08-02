@@ -17,6 +17,11 @@
  under the License.
  */
 
+/*
+Modifications:
+- Added getStatusBarHeight definition
+*/
+
 #import <Cordova/CDVPlugin.h>
 #import <Cordova/CDVInvokedUrlCommand.h>
 
@@ -38,6 +43,7 @@
 - (void) styleLightContent:(CDVInvokedUrlCommand*)command;
 - (void) styleBlackTranslucent:(CDVInvokedUrlCommand*)command;
 - (void) styleBlackOpaque:(CDVInvokedUrlCommand*)command;
+- (void) getStatusBarHeight:(CDVInvokedUrlCommand*)command;
 
 - (void) backgroundColorByName:(CDVInvokedUrlCommand*)command;
 - (void) backgroundColorByHexString:(CDVInvokedUrlCommand*)command;
