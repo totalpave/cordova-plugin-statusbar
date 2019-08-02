@@ -1,5 +1,5 @@
 {
-  "name": "@totalpave/cordova-plugin-statusbar",
+  "name": "cordova-plugin-statusbar",
   "version": "1.1.0",
   "description": "Cordova StatusBar Plugin",
   "types": "./types/index.d.ts",
@@ -7,7 +7,7 @@
     "thirdparty": true
   },
   "cordova": {
-    "id": "@totalpave/cordova-plugin-statusbar",
+    "id": "cordova-plugin-statusbar",
     "platforms": [
       "android",
       "ios",
