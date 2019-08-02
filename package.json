@@ -7,7 +7,7 @@
     "thirdparty": true
   },
   "cordova": {
-    "id": "cordova-plugin-statusbar",
+    "id": "@totalpave/cordova-plugin-statusbar",
     "platforms": [
       "android",
       "ios",
