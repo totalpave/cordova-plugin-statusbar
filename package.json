@@ -16,13 +16,8 @@
       "windows"
     ]
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/totalpave/cordova-plugin-statusbar"
-  },
-  "bugs": {
-    "url": "https://github.com/totalpave/cordova-plugin-statusbar/issues"
-  },
+  "repository": "https://github.com/totalpave/cordova-plugin-statusbar",
+  "bugs": "https://github.com/totalpave/cordova-plugin-statusbar/issues",
   "keywords": [
     "cordova",
     "statusbar",
