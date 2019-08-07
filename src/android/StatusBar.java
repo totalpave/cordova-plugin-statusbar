@@ -263,7 +263,7 @@ public class StatusBar extends CordovaPlugin {
     private void setStatusBarTransparent(final boolean transparent, final CallbackContext callbackContext) {
         if (Build.VERSION.SDK_INT >= 21) {
             final Window window = cordova.getActivity().getWindow();
-            if(callbackContext !== null) {
+            if(callbackContext != null) {
                 window.getDecorView().setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
                     @Override
                     public void onSystemUiVisibilityChange(int visibility) {
