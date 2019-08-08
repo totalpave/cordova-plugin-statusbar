@@ -134,6 +134,7 @@ public class StatusBar extends CordovaPlugin {
                     // CB-11197 We still need to update LayoutParams to force status bar
                     // to be hidden when entering e.g. text fields
                     window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                    callbackContext.success();
                 }
             });
             return true;
@@ -156,6 +157,7 @@ public class StatusBar extends CordovaPlugin {
                     // CB-11197 We still need to update LayoutParams to force status bar
                     // to be hidden when entering e.g. text fields
                     window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                    callbackContext.success();
                 }
             });
             return true;

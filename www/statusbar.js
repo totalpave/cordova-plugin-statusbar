@@ -91,14 +91,18 @@ var StatusBar = {
         exec(null, null, "StatusBar", "backgroundColorByHexString", [hexString]);
     },
 
-    hide: function () {
-        exec(null, null, "StatusBar", "hide", []);
-        StatusBar.isVisible = false;
+    hide: function (success, fail) {
+        exec(() => {
+            StatusBar.isVisible = false;
+            success();
+        }, fail, "StatusBar", "hide", []);
     },
 
-    show: function () {
-        exec(null, null, "StatusBar", "show", []);
-        StatusBar.isVisible = true;
+    show: function (success, fail) {
+        exec(() => {
+            StatusBar.isVisible = true;
+            success();
+        }, fail, "StatusBar", "show", []);
     },
 
     getStatusBarHeight: function(success, fail) {

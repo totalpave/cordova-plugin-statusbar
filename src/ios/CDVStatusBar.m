@@ -392,6 +392,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
         _statusBarBackgroundView.hidden = YES;
     }
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId: command.callbackId];
 }
 
 - (void) showStatusBar
@@ -429,6 +430,7 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 
         _statusBarBackgroundView.hidden = NO;
     }
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId: command.callbackId];
 }
 
 -(void)resizeStatusBarBackgroundView {
