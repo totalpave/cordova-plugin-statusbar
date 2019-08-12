@@ -23,8 +23,10 @@
 
 /*
 Modifications:
-- overlaysWebView
-- getStatusBarHeight
+- Changed overlaysWebView
+- Added getStatusBarHeight
+- Changed hide
+- Changed show
 */
 
 var exec = require('cordova/exec');

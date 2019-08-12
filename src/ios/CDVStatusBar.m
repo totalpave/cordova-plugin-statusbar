@@ -25,9 +25,11 @@
 
 /*
 Modifications:
-- pluginInitialize
-- getStatusBarHeight
-- overlaysWebView
+- Changed pluginInitialize
+- Added getStatusBarHeight
+- Changed overlaysWebView
+- Changed hide
+- Changed show
 */
 
 #import "CDVStatusBar.h"
