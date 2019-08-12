@@ -191,9 +191,10 @@ public class StatusBar extends CordovaPlugin {
                         }
                     }
                 });
-                return true;
+                // return true;
             }
-            else return args.getBoolean(0) == false;
+            // else return args.getBoolean(0) == false;
+            return true;
         }
 
         if ("styleDefault".equals(action)) {

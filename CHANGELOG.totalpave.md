@@ -1,3 +1,6 @@
+# Unreleased
+- Made Android StatusBar stop erroring out when using overlaysWebview on older phones.
+
 # 1.1.0 (August 2, 2019)
 - Added getStatusBarHeight to Android and iOS
 - Updated Android and iOS to read StatusBarOverlaysWebView from the preferences.

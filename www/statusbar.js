@@ -92,14 +92,14 @@ var StatusBar = {
     },
 
     hide: function (success, fail) {
-        exec(() => {
+        exec(function() {
             StatusBar.isVisible = false;
             success();
         }, fail, "StatusBar", "hide", []);
     },
 
     show: function (success, fail) {
-        exec(() => {
+        exec(function() {
             StatusBar.isVisible = true;
             success();
         }, fail, "StatusBar", "show", []);
