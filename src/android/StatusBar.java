@@ -121,7 +121,6 @@ public class StatusBar extends CordovaPlugin {
             this.cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    LOG.v(TAG, "TESTTEST " + action);
                     // SYSTEM_UI_FLAG_FULLSCREEN is available since JellyBean, but we
                     // use KitKat here to be aligned with "Fullscreen"  preference
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
