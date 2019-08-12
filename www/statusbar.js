@@ -51,7 +51,13 @@ var StatusBar = {
     isVisible: true,
 
     overlaysWebView: function (doOverlay, success, fail) {
-        exec(success, fail, "StatusBar", "overlaysWebView", [doOverlay]);
+        exec(function(s) {
+            console.log("rawr asdf");
+            success(s);
+        }, function(s) {
+            console.log("rawr fdsa");
+            fail(s);
+        }, "StatusBar", "overlaysWebView", [doOverlay]);
     },
 
     styleDefault: function () {
