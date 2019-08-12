@@ -100,6 +100,7 @@ var StatusBar = {
 
     show: function (success, fail) {
         exec(function() {
+            console.log("hi");
             StatusBar.isVisible = true;
             success();
         }, fail, "StatusBar", "show", []);
