@@ -1,6 +1,7 @@
 # Unreleased
 - Made Android StatusBar send a success callback when using overlaysWebView on older phones.
 - Made Android StatusBar stop erroring out when using overlaysWebView on older phones.
+- Added callbacks to show and hide.
 
 # 1.1.0 (August 2, 2019)
 - Added getStatusBarHeight to Android and iOS
