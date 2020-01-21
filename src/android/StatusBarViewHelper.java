@@ -2,7 +2,6 @@ package org.apache.cordova.statusbar;
 
 import android.app.Activity;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
@@ -19,13 +18,17 @@ public class StatusBarViewHelper {
     private int usableHeightPrevious;
     private FrameLayout.LayoutParams frameLayoutParams;
     private Activity activity;
+    private StatusBar statusbar;
+    private static final String TAG = "StatusBarViewHelper";
 
-    static void assistActivity(Activity activity) {
-        new StatusBarViewHelper(activity);
+    static void assist(Activity activity, StatusBar statusbar) {
+        new StatusBarViewHelper(activity, statusbar);
     }
 
-    private StatusBarViewHelper(Activity a) {
+    private StatusBarViewHelper(Activity a, StatusBar b) {
         activity = a;
+        statusbar = b;
+
         FrameLayout content = (FrameLayout) activity.findViewById(android.R.id.content);
         mChildOfContent = content.getChildAt(0);
 
@@ -47,15 +50,25 @@ public class StatusBarViewHelper {
         }
     }
 
+    private boolean _isStatusBarVisible() {
+        return statusbar.isVisible();
+    }
+
     private int computeUsableHeight() {
         Rect r = new Rect();
         mChildOfContent.getWindowVisibleDisplayFrame(r);
         int uiOptions = activity.getWindow().getDecorView().getSystemUiVisibility();
         boolean isFullscreen = ((uiOptions | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN) == uiOptions);
+        boolean isStatusBarVisible = this._isStatusBarVisible();
 
-        //If not fullscreen, then we have to take the status bar into consideration (represented by r.top)
-        //r.bottom defines the keyboard, or navigation bar, or both.
+        int usableHeight = r.bottom;
 
-        return isFullscreen ? r.bottom : r.bottom - r.top;
+        // This handles both overlayed status bars and reserved spaces for cutouts when the
+        // status bar is hidden
+        if (!isFullscreen || (isFullscreen && !isStatusBarVisible)) {
+            usableHeight = usableHeight - r.top;
+        }
+
+        return usableHeight;
     }
 }
